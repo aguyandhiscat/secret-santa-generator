@@ -1,0 +1,8 @@
+version: "3"
+services:
+  dev:
+    image: "secret-santa"
+    tty: true
+    container_name: "secret-santa"
+    volumes:
+      - "/home/alex/Projects/secret-santa-generator:/media/app"
