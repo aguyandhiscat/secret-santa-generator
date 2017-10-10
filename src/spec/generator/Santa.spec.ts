@@ -1,4 +1,4 @@
-import { Santa } from "../../app/Santa";
+import { Santa } from "../../generator/Santa";
 
 describe("A Santa", () => {
     let santa: Santa;

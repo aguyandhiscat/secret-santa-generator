@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const SantaReader_1 = require("../../app/SantaReader");
+const SantaReader_1 = require("../../generator/SantaReader");
 const Tester_1 = require("../helpers/Tester");
 describe("A SantaReader", () => {
     describe("can accept a file and return Santas", () => {

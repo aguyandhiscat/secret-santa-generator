@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Santa_1 = require("../../app/Santa");
+const Santa_1 = require("../../generator/Santa");
 describe("A Santa", () => {
     let santa;
     beforeEach(() => {

@@ -4,6 +4,7 @@
   "description": "Create a mapping of secret santas.",
   "main": "app.js",
   "scripts": {
+    "build": "rm -rf generator/ && tsc",
     "test": "jasmine --config=jasmine.json"
   },
   "repository": {

@@ -4,8 +4,7 @@ import { SecretSantaAssignment } from "./SecretSantaAssignment";
 import { SecretSantaAssigner } from "./SecretSantaAssigner";
 import { SecretSantaPrinter } from "./SecretSantaPrinter";
 
-export class AppRunner {
-    dataFilePath: string;
+export class Generator {
     santas: Array<Santa>;
     secretSantaAssigner: SecretSantaAssigner;
 
@@ -14,18 +13,8 @@ export class AppRunner {
         this.secretSantaAssigner = new SecretSantaAssigner();
     }
 
-    setPathToSantaData(path: string) {
-        this.dataFilePath = path;
-    }
-
-    run() {
-        this.readInSantaData();
-        this.assignSecretSantas();
-        this.printSecretSantas();
-    }
-
-    readInSantaData() {
-        this.santas = SantaReader.fromFile(this.dataFilePath);
+    readInSantaDataFromFile(path: string) {
+        this.santas = SantaReader.fromFile(path);
     }
 
     assignSecretSantas() {

@@ -1,5 +1,5 @@
-import { SantaReader } from "../../app/SantaReader";
-import { Santa } from "../../app/Santa";
+import { SantaReader } from "../../generator/SantaReader";
+import { Santa } from "../../generator/Santa";
 import { Tester } from "../helpers/Tester";
 
 describe("A SantaReader", () => {
