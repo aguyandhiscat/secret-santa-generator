@@ -45,15 +45,19 @@ describe("A SecretSantaAssigner", () => {
 
         it("and all santas are assigned", () => {
             for (let i = 0, ii = 10; i < ii; i++) {
-                setupAssignTests();
-                avoidManipulatingObjectReference();
-                removeAssignedSantasFromClonedList();
-                clonedSantasShouldBe0Length();
+                testAnAssignmentCase();
             }
         });
 
+        function testAnAssignmentCase() {
+            setupAssignTests();
+            avoidManipulatingObjectReference();
+            removeAssignedSantasFromClonedList();
+            clonedSantasShouldBe0Length();
+        }
+
         function setupAssignTests() {
-            assignSantas();
+            secretSantaAssigner.assign();
             santas = secretSantaAssigner.santas;
             assignments = secretSantaAssigner.assignments;
         }
@@ -73,7 +77,7 @@ describe("A SecretSantaAssigner", () => {
         }
 
         function shallowCloneSantas() {
-            clonedSantas = santas.slice(0);
+            clonedSantas = shallowCloneArray(santas);
         }
 
         function removeClonedSantaByAssignment(santaAssignment: SecretSantaAssignment) {
@@ -90,13 +94,71 @@ describe("A SecretSantaAssigner", () => {
         }
 
         function removeClonedSantaByIndex(index: number) {
-            clonedSantas = clonedSantas.splice(index, 1);
+            clonedSantas.splice(index, 1);
         }
     });
 
     describe("creates a random list", () => {
+        let listOfRandomLists: Array<Array<Santa>> = new Array<Array<Santa>>();
+
         it("and it must be randomly sorted", () => {
+            setupAssignerWithSantasForRandomSorting();
+            setupMultipleRandomLists();
+            verifyThatEachSortIsUnique();
         });
+
+        function setupAssignerWithSantasForRandomSorting() {
+            addMoreSantas();
+            secretSantaAssigner.copySantasForAssignment();
+        }
+
+        function setupMultipleRandomLists() {
+            for (let i = 0, ii = 10; i < ii; i++) {
+                doSortAndStoreRandomList();
+            }
+        }
+
+        function doSortAndStoreRandomList() {
+            doSort();
+            storeRandomList();
+        }
+
+        function doSort() {
+            secretSantaAssigner.randomlySortSantas();
+        }
+
+        function storeRandomList() {
+            listOfRandomLists.push(getRandomList());
+        }
+
+        function getRandomList() {
+            return shallowCloneArray(secretSantaAssigner.santasForAssignment);
+        }
+
+        function verifyThatEachSortIsUnique() {
+            for (let i = 0, ii = (listOfRandomLists.length - 1); i < ii; i++) {
+                let firstList: Array<Santa> = listOfRandomLists[i];
+                let nextList: Array<Santa> = listOfRandomLists[i + 1];
+                if (!listsAreUnique(firstList, nextList)) {
+                    fail("Lists are not randomly sorted. Try reruning first before thinking this is an error.");
+                    break;
+                }
+            }
+        }
+
+        function listsAreUnique(listA: Array<any>, listB: Array<any>) {
+            if (listA.length !== listB.length) {
+                return true;
+            }
+
+            for (let i = 0, ii = listA.length; i < ii; i++) {
+                if (listA[i] !== listB[i]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     });
 
     function createSecretSantaAssigner() {
@@ -106,10 +168,6 @@ describe("A SecretSantaAssigner", () => {
     function addSomeSantas() {
         addSantaWithName("Bilbo");
         addSantaWithName("Claus");
-    }
-
-    function assignSantas() {
-        secretSantaAssigner.assign();
     }
 
     function addMoreSantas() {
@@ -129,5 +187,9 @@ describe("A SecretSantaAssigner", () => {
         let santa: Santa = new Santa();
         santa.setName(name);
         return santa;
+    }
+
+    function shallowCloneArray(arr: Array<any>) {
+        return arr.slice(0);
     }
 });

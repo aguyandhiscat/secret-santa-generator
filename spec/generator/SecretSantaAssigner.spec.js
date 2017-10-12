@@ -38,14 +38,17 @@ describe("A SecretSantaAssigner", () => {
         });
         it("and all santas are assigned", () => {
             for (let i = 0, ii = 10; i < ii; i++) {
-                setupAssignTests();
-                avoidManipulatingObjectReference();
-                removeAssignedSantasFromClonedList();
-                clonedSantasShouldBe0Length();
+                testAnAssignmentCase();
             }
         });
+        function testAnAssignmentCase() {
+            setupAssignTests();
+            avoidManipulatingObjectReference();
+            removeAssignedSantasFromClonedList();
+            clonedSantasShouldBe0Length();
+        }
         function setupAssignTests() {
-            assignSantas();
+            secretSantaAssigner.assign();
             santas = secretSantaAssigner.santas;
             assignments = secretSantaAssigner.assignments;
         }
@@ -61,7 +64,7 @@ describe("A SecretSantaAssigner", () => {
             expect(clonedSantas.length).toBe(0);
         }
         function shallowCloneSantas() {
-            clonedSantas = santas.slice(0);
+            clonedSantas = shallowCloneArray(santas);
         }
         function removeClonedSantaByAssignment(santaAssignment) {
             let receivingSanta = santaAssignment.getReceiver();
@@ -75,12 +78,59 @@ describe("A SecretSantaAssigner", () => {
             removeClonedSantaByIndex(index);
         }
         function removeClonedSantaByIndex(index) {
-            clonedSantas = clonedSantas.splice(index, 1);
+            clonedSantas.splice(index, 1);
         }
     });
     describe("creates a random list", () => {
+        let listOfRandomLists = new Array();
         it("and it must be randomly sorted", () => {
+            setupAssignerWithSantasForRandomSorting();
+            setupMultipleRandomLists();
+            verifyThatEachSortIsUnique();
         });
+        function setupAssignerWithSantasForRandomSorting() {
+            addMoreSantas();
+            secretSantaAssigner.copySantasForAssignment();
+        }
+        function setupMultipleRandomLists() {
+            for (let i = 0, ii = 10; i < ii; i++) {
+                doSortAndStoreRandomList();
+            }
+        }
+        function doSortAndStoreRandomList() {
+            doSort();
+            storeRandomList();
+        }
+        function doSort() {
+            secretSantaAssigner.randomlySortSantas();
+        }
+        function storeRandomList() {
+            listOfRandomLists.push(getRandomList());
+        }
+        function getRandomList() {
+            return shallowCloneArray(secretSantaAssigner.santasForAssignment);
+        }
+        function verifyThatEachSortIsUnique() {
+            for (let i = 0, ii = (listOfRandomLists.length - 1); i < ii; i++) {
+                let firstList = listOfRandomLists[i];
+                let nextList = listOfRandomLists[i + 1];
+                if (!listsAreUnique(firstList, nextList)) {
+                    fail("Lists are not randomly sorted. Try reruning first before thinking this is an error.");
+                    break;
+                }
+            }
+        }
+        function listsAreUnique(listA, listB) {
+            if (listA.length !== listB.length) {
+                return true;
+            }
+            for (let i = 0, ii = listA.length; i < ii; i++) {
+                if (listA[i] !== listB[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
     });
     function createSecretSantaAssigner() {
         secretSantaAssigner = new SecretSantaAssigner_1.SecretSantaAssigner();
@@ -88,9 +138,6 @@ describe("A SecretSantaAssigner", () => {
     function addSomeSantas() {
         addSantaWithName("Bilbo");
         addSantaWithName("Claus");
-    }
-    function assignSantas() {
-        secretSantaAssigner.assign();
     }
     function addMoreSantas() {
         addSantaWithName("Alfa");
@@ -107,6 +154,9 @@ describe("A SecretSantaAssigner", () => {
         let santa = new Santa_1.Santa();
         santa.setName(name);
         return santa;
+    }
+    function shallowCloneArray(arr) {
+        return arr.slice(0);
     }
 });
 //# sourceMappingURL=SecretSantaAssigner.spec.js.map
