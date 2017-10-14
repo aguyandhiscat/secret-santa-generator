@@ -18,14 +18,14 @@ export class SecretSantaAssigner {
 
     assign() {
         this.assignments = Array<SecretSantaAssignment>();
-        this.prepareSantasForAssignment();
+        this.prepareAssignment();
         this.assignSecretSantas();
     }
 
-    prepareSantasForAssignment() {
+    prepareAssignment() {
         this.santasForAssignment = new Array<Santa>();
         this.copySantasForAssignment();
-        this.randomlySortSantas();
+        this.randomizeAssignableSantas();
     }
 
     copySantasForAssignment() {
@@ -35,7 +35,7 @@ export class SecretSantaAssigner {
         }
     }
 
-    randomlySortSantas() {
+    randomizeAssignableSantas() {
         this.santasForAssignment.sort(this.randomSortMethod);
     }
 
@@ -44,18 +44,21 @@ export class SecretSantaAssigner {
     }
 
     assignSecretSantas() {
-        let lengthSubOne: number = (this.santasForAssignment.length - 1);
+        const lengthSubOne: number = (this.santasForAssignment.length - 1);
         for (let i = 0, ii = lengthSubOne; i < ii; i++) {
             this.addAssignmentByGifterAndReceiverIndex(i, i + 1);
         }
-
         this.addAssignmentByGifterAndReceiverIndex(lengthSubOne, 0);
     }
 
     addAssignmentByGifterAndReceiverIndex(gifterIndex: number, receiverIndex: number) {
-        let assignment = new SecretSantaAssignment();
-        assignment.gifter = this.santasForAssignment[gifterIndex];
-        assignment.receiver = this.santasForAssignment[receiverIndex];
+        const gifter: Santa = this.santasForAssignment[gifterIndex];
+        const receiver: Santa = this.santasForAssignment[receiverIndex];
+        const assignment: SecretSantaAssignment = SecretSantaAssignment.fromGifterAndReceiver(gifter, receiver);
+        this.addAssignment(assignment);
+    }
+
+    addAssignment(assignment: SecretSantaAssignment) {
         this.assignments.push(assignment);
     }
 

@@ -5,6 +5,7 @@ export class Santa {
     setName(name: string) {
         this.name = name;
     }
+
     setEmail(email: string) {
         this.email = email;
     }
