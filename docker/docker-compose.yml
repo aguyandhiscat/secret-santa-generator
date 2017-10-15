@@ -6,3 +6,4 @@ services:
     container_name: "secret-santa"
     volumes:
       - "/home/alex/Projects/secret-santa-generator:/media/app"
+      - "/home/alex/.ssh:/root/.ssh"
