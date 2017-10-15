@@ -1,5 +1,5 @@
-import { SecretSantaAssignment } from "../../generator/SecretSantaAssignment";
 import { Santa } from "../../generator/Santa";
+import { SecretSantaAssignment } from "../../generator/SecretSantaAssignment";
 import * as UtilsSanta from "../helpers/UtilsSanta";
 
 describe("A SecretSantaAssignment", () => {

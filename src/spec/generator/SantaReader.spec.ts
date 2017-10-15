@@ -1,5 +1,5 @@
-import { SantaReader } from "../../generator/SantaReader";
 import { Santa } from "../../generator/Santa";
+import { SantaReader } from "../../generator/SantaReader";
 import { Tester } from "../helpers/Tester";
 
 describe("A SantaReader", () => {
@@ -22,7 +22,7 @@ describe("A SantaReader", () => {
             });
 
             it("that has matching names and emails", () => {
-                let santas: Array<Santa> = SantaReader.fromFile(Tester.helpersPwd() + "/test-santa-list.json");
+                const santas: Santa[] = SantaReader.fromFile(Tester.helpersPwd() + "/test-santa-list.json");
                 expect(santas.length).toBe(5);
                 expect(santas[2].email).toBe("bloop@blue.com");
             });
@@ -30,7 +30,7 @@ describe("A SantaReader", () => {
     });
 
     function thisFileWillThrow(fileName: string) {
-        let run = () => {
+        const run = () => {
             SantaReader.fromFile(Tester.helpersPwd() + "/" + fileName);
         };
         expect(run).toThrow();

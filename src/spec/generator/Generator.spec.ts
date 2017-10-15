@@ -1,5 +1,5 @@
-import { Tester } from "../helpers/Tester";
 import { Generator } from "../../generator/Generator";
+import { Tester } from "../helpers/Tester";
 import { Santa } from "../../generator/Santa";
 import { SecretSantaPrinter } from "../../generator/SecretSantaPrinter";
 
@@ -12,7 +12,7 @@ describe("The Generator", () => {
 
     describe("can read in santa data", () => {
         it("but file must exist", () => {
-            let run = () => {
+            const run = () => {
                 generator.readInSantaDataFromFile(Tester.helpersPwd() + "/nothing");
             };
             expect(run).toThrow();
@@ -32,8 +32,8 @@ describe("The Generator", () => {
             });
 
             it("of which items are of class Santa", () => {
-                let objectName = generator.santas[0].constructor.name;
-                let className = Santa.name;
+                const objectName = generator.santas[0].constructor.name;
+                const className = Santa.name;
                 expect(objectName).toBe(className);
             });
         });
@@ -63,8 +63,6 @@ describe("The Generator", () => {
         mockOutPrinterForPrintTest();
         generator.printSecretSantas();
         expect(SecretSantaPrinter.printAssignments).toHaveBeenCalledWith("these are the assignments");
-
-        SecretSantaPrinter;
     });
 
     function createGenerator() {
@@ -81,7 +79,7 @@ describe("The Generator", () => {
     }
 
     function mockOutSecretSantaAssignerForPrintTest() {
-        let spy = spyOn(generator.secretSantaAssigner, "getAssignments");
+        const spy = spyOn(generator.secretSantaAssigner, "getAssignments");
         spy.and.returnValue("these are the assignments");
     }
 

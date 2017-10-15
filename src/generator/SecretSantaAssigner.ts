@@ -1,49 +1,53 @@
+import { getRandomFloatInclusive } from "./lib/Utils";
 import { Santa } from "./Santa";
 import { SecretSantaAssignment } from "./SecretSantaAssignment";
-import { getRandomFloatInclusive } from "./lib/Utils";
 
 export class SecretSantaAssigner {
-    santas: Array<Santa>;
-    santasForAssignment: Array<Santa>;
-    assignments: Array<SecretSantaAssignment>;
+    private santas: Santa[];
+    private santasForAssignment: Santa[];
+    private assignments: SecretSantaAssignment[];
 
     constructor() {
-        this.santas = new Array<Santa>();
-        this.santasForAssignment = new Array<Santa>();
+        this.santas = [];
+        this.santasForAssignment = [];
     }
 
-    addSanta(santa: Santa) {
+    public addSanta(santa: Santa) {
         this.santas.push(santa);
     }
 
-    assign() {
-        this.assignments = Array<SecretSantaAssignment>();
+    public assign() {
+        this.assignments = [];
         this.prepareAssignment();
         this.assignSecretSantas();
     }
 
-    prepareAssignment() {
-        this.santasForAssignment = new Array<Santa>();
+    public getAssignments(): SecretSantaAssignment[] {
+        return this.assignments;
+    }
+
+    private prepareAssignment() {
+        this.santasForAssignment = [];
         this.copySantasForAssignment();
         this.randomizeAssignableSantas();
     }
 
-    copySantasForAssignment() {
+    private copySantasForAssignment() {
         let santa: Santa;
         for (santa of this.santas) {
             this.santasForAssignment.push(santa);
         }
     }
 
-    randomizeAssignableSantas() {
+    private randomizeAssignableSantas() {
         this.santasForAssignment.sort(this.randomSortMethod);
     }
 
-    randomSortMethod(left: Santa, right: Santa): number {
+    private randomSortMethod(left: Santa, right: Santa): number {
         return getRandomFloatInclusive(-1, 1);
     }
 
-    assignSecretSantas() {
+    private assignSecretSantas() {
         const lengthSubOne: number = (this.santasForAssignment.length - 1);
         for (let i = 0, ii = lengthSubOne; i < ii; i++) {
             this.addAssignmentByGifterAndReceiverIndex(i, i + 1);
@@ -51,18 +55,14 @@ export class SecretSantaAssigner {
         this.addAssignmentByGifterAndReceiverIndex(lengthSubOne, 0);
     }
 
-    addAssignmentByGifterAndReceiverIndex(gifterIndex: number, receiverIndex: number) {
+    private addAssignmentByGifterAndReceiverIndex(gifterIndex: number, receiverIndex: number) {
         const gifter: Santa = this.santasForAssignment[gifterIndex];
         const receiver: Santa = this.santasForAssignment[receiverIndex];
         const assignment: SecretSantaAssignment = SecretSantaAssignment.fromGifterAndReceiver(gifter, receiver);
         this.addAssignment(assignment);
     }
 
-    addAssignment(assignment: SecretSantaAssignment) {
+    private addAssignment(assignment: SecretSantaAssignment) {
         this.assignments.push(assignment);
-    }
-
-    getAssignments(): Array<SecretSantaAssignment> {
-        return this.assignments;
     }
 }

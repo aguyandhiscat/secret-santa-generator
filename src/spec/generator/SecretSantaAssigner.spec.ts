@@ -1,14 +1,14 @@
-import { SecretSantaAssigner } from "../../generator/SecretSantaAssigner";
 import { Santa } from "../../generator/Santa";
+import { SecretSantaAssigner } from "../../generator/SecretSantaAssigner";
 import { SecretSantaAssignment } from "../../generator/SecretSantaAssignment";
 import * as UtilsArray from "../helpers/UtilsArray";
-import * as UtilsSantaAssignment from "../helpers/UtilsSantaAssignment";
 import * as UtilsSanta from "../helpers/UtilsSanta";
+import * as UtilsSantaAssignment from "../helpers/UtilsSantaAssignment";
 
 let secretSantaAssigner: SecretSantaAssigner;
-let addedSantas: Array<Santa>;
-let assignments: Array<SecretSantaAssignment>;
-let storedAssignments: Array<Array<SecretSantaAssignment>>;
+let addedSantas: Santa[];
+let assignments: SecretSantaAssignment[];
+let storedAssignments: SecretSantaAssignment[][];
 
 describe("A SecretSantaAssigner's assignments", () => {
     it("should use all added santas", () => {
@@ -31,7 +31,7 @@ function doAssignment() {
 
 function setupAssigner() {
     secretSantaAssigner = new SecretSantaAssigner();
-    addedSantas = new Array<Santa>();
+    addedSantas = [];
 }
 
 function addSantas() {
@@ -63,7 +63,7 @@ function removeAssignedSantas() {
 function removeSantaByAssignment(santaAssignment: SecretSantaAssignment) {
     const receiver: Santa = santaAssignment.receiver;
     if (!UtilsArray.has(addedSantas, receiver)) {
-        throw "Receiving Santa was never added.";
+        throw new Error("Receiving Santa was never added.");
     }
     UtilsArray.removeItem(addedSantas, receiver);
 }
@@ -73,7 +73,7 @@ function expectAllSantasToBeRemoved() {
 }
 
 function generateNAssignments(count: number) {
-    storedAssignments = new Array<Array<SecretSantaAssignment>>();
+    storedAssignments = [];
     for (let i = 0; i < count; i++) {
         doAssignment();
         storedAssignments.push(assignments);
@@ -94,7 +94,7 @@ function expectUniqueAssignments() {
     }
 }
 
-function assignmentsAreUnique(left: Array<SecretSantaAssignment>, right: Array<SecretSantaAssignment>) {
+function assignmentsAreUnique(left: SecretSantaAssignment[], right: SecretSantaAssignment[]) {
     if (left.length !== right.length) {
         return true;
     }

@@ -1,5 +1,5 @@
 export class Tester {
-    static helpersPwd(): string {
+    public static helpersPwd(): string {
         return __dirname;
     }
 }

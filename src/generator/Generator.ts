@@ -1,36 +1,36 @@
-import { SantaReader } from "./SantaReader";
 import { Santa } from "./Santa";
-import { SecretSantaAssignment } from "./SecretSantaAssignment";
+import { SantaReader } from "./SantaReader";
 import { SecretSantaAssigner } from "./SecretSantaAssigner";
+import { SecretSantaAssignment } from "./SecretSantaAssignment";
 import { SecretSantaPrinter } from "./SecretSantaPrinter";
 
 export class Generator {
-    santas: Array<Santa>;
-    secretSantaAssigner: SecretSantaAssigner;
+    public santas: Santa[];
+    public secretSantaAssigner: SecretSantaAssigner;
 
     constructor() {
-        this.santas = new Array<Santa>();
+        this.santas = [];
         this.secretSantaAssigner = new SecretSantaAssigner();
     }
 
-    readInSantaDataFromFile(path: string) {
+    public readInSantaDataFromFile(path: string) {
         this.santas = SantaReader.fromFile(path);
     }
 
-    assignSecretSantas() {
+    public assignSecretSantas() {
         this.addSantasToAssigner();
         this.secretSantaAssigner.assign();
     }
 
-    addSantasToAssigner() {
+    public printSecretSantas() {
+        const assignments: SecretSantaAssignment[] = this.secretSantaAssigner.getAssignments();
+        SecretSantaPrinter.printAssignments(assignments);
+    }
+
+    private addSantasToAssigner() {
         let santa: Santa;
         for (santa of this.santas) {
             this.secretSantaAssigner.addSanta(santa);
         }
-    }
-
-    printSecretSantas() {
-        let assignments: Array<SecretSantaAssignment> = this.secretSantaAssigner.getAssignments();
-        SecretSantaPrinter.printAssignments(assignments);
     }
 }
