@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const SecretSantaAssigner_1 = require("../../generator/SecretSantaAssigner");
 const UtilsArray = require("../helpers/UtilsArray");
-const UtilsSantaAssignment = require("../helpers/UtilsSantaAssignment");
 const UtilsSanta = require("../helpers/UtilsSanta");
+const UtilsSantaAssignment = require("../helpers/UtilsSantaAssignment");
 let secretSantaAssigner;
 let addedSantas;
 let assignments;
@@ -26,7 +26,7 @@ function doAssignment() {
 }
 function setupAssigner() {
     secretSantaAssigner = new SecretSantaAssigner_1.SecretSantaAssigner();
-    addedSantas = new Array();
+    addedSantas = [];
 }
 function addSantas() {
     addSantaWithName("Alfa");
@@ -53,7 +53,7 @@ function removeAssignedSantas() {
 function removeSantaByAssignment(santaAssignment) {
     const receiver = santaAssignment.receiver;
     if (!UtilsArray.has(addedSantas, receiver)) {
-        throw "Receiving Santa was never added.";
+        throw new Error("Receiving Santa was never added.");
     }
     UtilsArray.removeItem(addedSantas, receiver);
 }
@@ -61,7 +61,7 @@ function expectAllSantasToBeRemoved() {
     expect(addedSantas.length).toBe(0);
 }
 function generateNAssignments(count) {
-    storedAssignments = new Array();
+    storedAssignments = [];
     for (let i = 0; i < count; i++) {
         doAssignment();
         storedAssignments.push(assignments);

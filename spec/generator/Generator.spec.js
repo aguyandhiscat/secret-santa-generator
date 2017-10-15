@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Tester_1 = require("../helpers/Tester");
 const Generator_1 = require("../../generator/Generator");
+const Tester_1 = require("../helpers/Tester");
 const Santa_1 = require("../../generator/Santa");
 const SecretSantaPrinter_1 = require("../../generator/SecretSantaPrinter");
 describe("The Generator", () => {
@@ -11,7 +11,7 @@ describe("The Generator", () => {
     });
     describe("can read in santa data", () => {
         it("but file must exist", () => {
-            let run = () => {
+            const run = () => {
                 generator.readInSantaDataFromFile(Tester_1.Tester.helpersPwd() + "/nothing");
             };
             expect(run).toThrow();
@@ -27,8 +27,8 @@ describe("The Generator", () => {
                 expect(generator.santas.length).toBe(5);
             });
             it("of which items are of class Santa", () => {
-                let objectName = generator.santas[0].constructor.name;
-                let className = Santa_1.Santa.name;
+                const objectName = generator.santas[0].constructor.name;
+                const className = Santa_1.Santa.name;
                 expect(objectName).toBe(className);
             });
         });
@@ -54,7 +54,6 @@ describe("The Generator", () => {
         mockOutPrinterForPrintTest();
         generator.printSecretSantas();
         expect(SecretSantaPrinter_1.SecretSantaPrinter.printAssignments).toHaveBeenCalledWith("these are the assignments");
-        SecretSantaPrinter_1.SecretSantaPrinter;
     });
     function createGenerator() {
         generator = new Generator_1.Generator();
@@ -67,7 +66,7 @@ describe("The Generator", () => {
         spyOn(generator.secretSantaAssigner, "assign");
     }
     function mockOutSecretSantaAssignerForPrintTest() {
-        let spy = spyOn(generator.secretSantaAssigner, "getAssignments");
+        const spy = spyOn(generator.secretSantaAssigner, "getAssignments");
         spy.and.returnValue("these are the assignments");
     }
     function mockOutPrinterForPrintTest() {

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Santa_1 = require("./Santa");
 const fs = require("fs");
+const Santa_1 = require("./Santa");
 class SantaReader {
     static fromFile(fileName) {
         const reader = new this();
@@ -20,12 +20,12 @@ class SantaReader {
         const names = this.jsonSantaData.names;
         const emails = this.jsonSantaData.emails;
         if (names.length !== emails.length) {
-            throw "Names and Emails must be same length.";
+            throw new Error("Names and Emails must be same length.");
         }
         this.santas = this.getSantasFromNamesAndEmails(names, emails);
     }
     getSantasFromNamesAndEmails(names, emails) {
-        const santas = new Array();
+        const santas = [];
         for (let i = 0, ii = names.length; i < ii; i++) {
             const name = names[i];
             const email = emails[i];

@@ -1,22 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const SecretSantaAssignment_1 = require("./SecretSantaAssignment");
 const Utils_1 = require("./lib/Utils");
+const SecretSantaAssignment_1 = require("./SecretSantaAssignment");
 class SecretSantaAssigner {
     constructor() {
-        this.santas = new Array();
-        this.santasForAssignment = new Array();
+        this.santas = [];
+        this.santasForAssignment = [];
     }
     addSanta(santa) {
         this.santas.push(santa);
     }
     assign() {
-        this.assignments = Array();
+        this.assignments = [];
         this.prepareAssignment();
         this.assignSecretSantas();
     }
+    getAssignments() {
+        return this.assignments;
+    }
     prepareAssignment() {
-        this.santasForAssignment = new Array();
+        this.santasForAssignment = [];
         this.copySantasForAssignment();
         this.randomizeAssignableSantas();
     }
@@ -47,9 +50,6 @@ class SecretSantaAssigner {
     }
     addAssignment(assignment) {
         this.assignments.push(assignment);
-    }
-    getAssignments() {
-        return this.assignments;
     }
 }
 exports.SecretSantaAssigner = SecretSantaAssigner;

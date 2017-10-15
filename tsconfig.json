@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "outDir": "./",
     "allowJs": false,
-    "watch": true,
     "sourceMap": true
   },
   "include": [

@@ -18,14 +18,14 @@ describe("A SantaReader", () => {
                 thisFileWillThrow("non-matching-names-emails.json");
             });
             it("that has matching names and emails", () => {
-                let santas = SantaReader_1.SantaReader.fromFile(Tester_1.Tester.helpersPwd() + "/test-santa-list.json");
+                const santas = SantaReader_1.SantaReader.fromFile(Tester_1.Tester.helpersPwd() + "/test-santa-list.json");
                 expect(santas.length).toBe(5);
                 expect(santas[2].email).toBe("bloop@blue.com");
             });
         });
     });
     function thisFileWillThrow(fileName) {
-        let run = () => {
+        const run = () => {
             SantaReader_1.SantaReader.fromFile(Tester_1.Tester.helpersPwd() + "/" + fileName);
         };
         expect(run).toThrow();
