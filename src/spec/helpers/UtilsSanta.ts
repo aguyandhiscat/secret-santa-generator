@@ -9,3 +9,7 @@ export function equals(left: Santa, right: Santa) {
     }
     return true;
 }
+
+export function createFromName(name: string) {
+    return Santa.fromNameAndEmail(name, "");
+}

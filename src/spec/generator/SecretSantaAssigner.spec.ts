@@ -3,6 +3,7 @@ import { Santa } from "../../generator/Santa";
 import { SecretSantaAssignment } from "../../generator/SecretSantaAssignment";
 import * as UtilsArray from "../helpers/UtilsArray";
 import * as UtilsSantaAssignment from "../helpers/UtilsSantaAssignment";
+import * as UtilsSanta from "../helpers/UtilsSanta";
 
 let secretSantaAssigner: SecretSantaAssigner;
 let addedSantas: Array<Santa>;
@@ -48,15 +49,9 @@ function callAssign() {
 }
 
 function addSantaWithName(name: string) {
-    let santa: Santa = createSantaWithName(name);
+    const santa: Santa = UtilsSanta.createFromName(name);
     secretSantaAssigner.addSanta(santa);
     addedSantas.push(santa);
-}
-
-function createSantaWithName(name: string) {
-    let santa: Santa = new Santa();
-    santa.setName(name);
-    return santa;
 }
 
 function removeAssignedSantas() {
@@ -66,7 +61,7 @@ function removeAssignedSantas() {
 }
 
 function removeSantaByAssignment(santaAssignment: SecretSantaAssignment) {
-    const receiver: Santa = santaAssignment.getReceiver();
+    const receiver: Santa = santaAssignment.receiver;
     if (!UtilsArray.has(addedSantas, receiver)) {
         throw "Receiving Santa was never added.";
     }

@@ -7,9 +7,6 @@ class SecretSantaAssignment {
         assignment.receiver = receiver;
         return assignment;
     }
-    getReceiver() {
-        return this.receiver;
-    }
 }
 exports.SecretSantaAssignment = SecretSantaAssignment;
 //# sourceMappingURL=SecretSantaAssignment.js.map

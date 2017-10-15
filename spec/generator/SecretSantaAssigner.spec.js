@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const SecretSantaAssigner_1 = require("../../generator/SecretSantaAssigner");
-const Santa_1 = require("../../generator/Santa");
 const UtilsArray = require("../helpers/UtilsArray");
 const UtilsSantaAssignment = require("../helpers/UtilsSantaAssignment");
+const UtilsSanta = require("../helpers/UtilsSanta");
 let secretSantaAssigner;
 let addedSantas;
 let assignments;
@@ -41,14 +41,9 @@ function callAssign() {
     assignments = secretSantaAssigner.getAssignments();
 }
 function addSantaWithName(name) {
-    let santa = createSantaWithName(name);
+    const santa = UtilsSanta.createFromName(name);
     secretSantaAssigner.addSanta(santa);
     addedSantas.push(santa);
-}
-function createSantaWithName(name) {
-    let santa = new Santa_1.Santa();
-    santa.setName(name);
-    return santa;
 }
 function removeAssignedSantas() {
     assignments.forEach((santaAssignment) => {
@@ -56,7 +51,7 @@ function removeAssignedSantas() {
     });
 }
 function removeSantaByAssignment(santaAssignment) {
-    const receiver = santaAssignment.getReceiver();
+    const receiver = santaAssignment.receiver;
     if (!UtilsArray.has(addedSantas, receiver)) {
         throw "Receiving Santa was never added.";
     }

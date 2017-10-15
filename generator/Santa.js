@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Santa {
-    setName(name) {
-        this.name = name;
-    }
-    setEmail(email) {
-        this.email = email;
+    static fromNameAndEmail(name, email) {
+        const santa = new Santa();
+        santa.name = name;
+        santa.email = email;
+        return santa;
     }
 }
 exports.Santa = Santa;

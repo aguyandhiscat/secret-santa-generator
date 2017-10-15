@@ -10,8 +10,4 @@ export class SecretSantaAssignment {
         assignment.receiver = receiver;
         return assignment;
     }
-
-    getReceiver(): Santa {
-        return this.receiver;
-    }
 }

@@ -2,11 +2,10 @@ export class Santa {
     name: string;
     email: string;
 
-    setName(name: string) {
-        this.name = name;
-    }
-
-    setEmail(email: string) {
-        this.email = email;
+    static fromNameAndEmail(name: string, email: string) {
+        const santa: Santa = new Santa();
+        santa.name = name;
+        santa.email = email;
+        return santa;
     }
 }

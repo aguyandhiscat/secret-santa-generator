@@ -7,12 +7,11 @@ export class SantaReader {
     santas: Array<Santa>;
 
     static fromFile(fileName: string): Array<Santa> {
-        let reader = new this();
+        const reader = new this();
         reader.readInJson(fileName);
         reader.objectifyJson();
         reader.convertJsonToSantas();
-
-        return reader.getSantas();
+        return reader.santas;
     }
 
     readInJson(fileName: string): void {
@@ -24,37 +23,21 @@ export class SantaReader {
     }
 
     convertJsonToSantas(): void {
-        let names = this.jsonSantaData.names;
-        let emails = this.jsonSantaData.emails;
-
+        const names = this.jsonSantaData.names;
+        const emails = this.jsonSantaData.emails;
         if (names.length !== emails.length) {
-            throw "Names and Emails must be same length";
+            throw "Names and Emails must be same length.";
         }
-
         this.santas = this.getSantasFromNamesAndEmails(names, emails);
     }
 
     getSantasFromNamesAndEmails(names: Array<string>, emails: Array<string>): Array<Santa> {
-        let santas: Array<Santa> = new Array<Santa>();
-
+        const santas: Array<Santa> = new Array<Santa>();
         for (let i = 0, ii = names.length; i < ii; i++) {
-            let name = names[i];
-            let email = emails[i];
-            let santa = this.createSantaFromNameAndEmail(name, email);
-            santas.push(santa);
+            const name = names[i];
+            const email = emails[i];
+            santas.push(Santa.fromNameAndEmail(name, email));
         }
-
         return santas;
-    }
-
-    createSantaFromNameAndEmail(name: string, email: string): Santa {
-        let santa = new Santa();
-        santa.setName(name);
-        santa.setEmail(email);
-        return santa;
-    }
-
-    getSantas(): Array<Santa> {
-        return this.santas;
     }
 }
