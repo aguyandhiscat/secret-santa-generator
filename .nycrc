@@ -1,0 +1,11 @@
+{
+    "include": [
+        "generator/**/*.js"
+    ],
+    "reporter": [
+        "html",
+        "text",
+        "text-summary"
+    ],
+    "tempDirectory": "coverage/.nyc_output"
+}

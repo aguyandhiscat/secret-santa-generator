@@ -1,27 +1,29 @@
 {
-  "name": "secret-santa-generator",
+  "name": "secret-santa",
   "version": "1.0.0",
   "description": "Create a mapping of secret santas.",
   "main": "app.js",
   "scripts": {
     "build": "rm -rf generator/ && tsc",
-    "test": "jasmine --config=jasmine.json"
+    "test": "jasmine --config=jasmine.json",
+    "coverage": "nyc jasmine --config=jasmine.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aguyandhiscat/secret-santa-generator.git"
+    "url": "git+https://github.com/aguyandhiscat/secret-santa.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aguyandhiscat/secret-santa-generator/issues"
+    "url": "https://github.com/aguyandhiscat/secret-santa/issues"
   },
-  "homepage": "https://github.com/aguyandhiscat/secret-santa-generator#readme",
+  "homepage": "https://github.com/aguyandhiscat/secret-santa#readme",
   "devDependencies": {
     "@types/jasmine": "^2.6.0",
     "@types/node": "8.0.28",
     "jasmine": "^2.8.0",
     "jasmine-ts-console-reporter": "^1.0.2",
+    "nyc": "^11.2.1",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2"
   }

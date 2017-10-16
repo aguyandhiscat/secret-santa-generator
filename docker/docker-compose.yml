@@ -5,5 +5,5 @@ services:
     tty: true
     container_name: "secret-santa"
     volumes:
-      - "/home/alex/Projects/secret-santa-generator:/media/app"
+      - "..:/media/app"
       - "/home/alex/.ssh:/home/node/.ssh"
