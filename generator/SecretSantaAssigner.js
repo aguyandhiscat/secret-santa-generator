@@ -3,9 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Utils_1 = require("./lib/Utils");
 const SecretSantaAssignment_1 = require("./SecretSantaAssignment");
 class SecretSantaAssigner {
+    static fromSantas(santas) {
+        const assigner = new this();
+        assigner.addSantas(santas);
+        return assigner;
+    }
     constructor() {
         this.santas = [];
         this.santasForAssignment = [];
+    }
+    addSantas(santas) {
+        santas.forEach((santa) => {
+            this.addSanta(santa);
+        });
     }
     addSanta(santa) {
         this.santas.push(santa);

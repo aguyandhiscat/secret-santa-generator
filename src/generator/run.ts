@@ -1,9 +1,13 @@
 import * as process from "process";
-import { Generator } from "./Generator";
+import { Santa } from "./Santa";
+import { SantaReader } from "./SantaReader";
+import { SecretSantaAssigner } from "./SecretSantaAssigner";
+import { SecretSantaPrinter } from "./SecretSantaPrinter";
 
 const filePath: string = process.argv[2];
 
-const generator: Generator = new Generator();
-generator.readInSantaDataFromFile(filePath);
-generator.assignSecretSantas();
-generator.printSecretSantas();
+const santas: Santa[] = SantaReader.fromFile(filePath);
+const assigner: SecretSantaAssigner = SecretSantaAssigner.fromSantas(santas);
+assigner.assign();
+
+SecretSantaPrinter.printAssignments(assigner.getAssignments());

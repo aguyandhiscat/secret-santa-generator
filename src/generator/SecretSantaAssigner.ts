@@ -3,6 +3,12 @@ import { Santa } from "./Santa";
 import { SecretSantaAssignment } from "./SecretSantaAssignment";
 
 export class SecretSantaAssigner {
+    public static fromSantas(santas: Santa[]) {
+        const assigner = new this();
+        assigner.addSantas(santas);
+        return assigner;
+    }
+
     private santas: Santa[];
     private santasForAssignment: Santa[];
     private assignments: SecretSantaAssignment[];
@@ -10,6 +16,12 @@ export class SecretSantaAssigner {
     constructor() {
         this.santas = [];
         this.santasForAssignment = [];
+    }
+
+    public addSantas(santas: Santa[]) {
+        santas.forEach((santa: Santa) => {
+            this.addSanta(santa);
+        });
     }
 
     public addSanta(santa: Santa) {
