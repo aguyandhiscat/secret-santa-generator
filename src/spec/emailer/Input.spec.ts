@@ -1,11 +1,15 @@
 import { Input } from "../../emailer/Input";
+import { MockStdin } from "../helpers/MockStdin";
 
 fdescribe("The Reader", () => {
     it("should read in lines from stdin", () => {
-        process.stdout.write("Line1\n");
-        process.stdout.write("Line2\n");
-        process.stdout.write("Line3\n");
+        const stdin = new MockStdin();
+        Input.stdin = stdin;
 
-        // Reader.readInLines();
+        Input.read();
+        stdin.send("Hi");
+        stdin.end();
+
+        console.log("InData", Input.getLines());
     });
 });
