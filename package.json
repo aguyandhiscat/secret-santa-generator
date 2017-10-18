@@ -4,7 +4,7 @@
   "description": "Create a mapping of secret santas.",
   "main": "app.js",
   "scripts": {
-    "build": "rm -rf generator/ emailer/ spec/emailer/ spec/generator/ spec/helpers/*.js spec/helpers/*.js.map  && tsc",
+    "build": "rm -rf built/generator/ built/emailer/ built/spec/emailer/ built/spec/generator/ built/spec/helpers/*.js built/spec/helpers/*.js.map && tsc",
     "test": "jasmine --config=jasmine.json",
     "coverage": "nyc jasmine --config=jasmine.json"
   },

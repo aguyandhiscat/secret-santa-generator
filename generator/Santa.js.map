@@ -1,1 +1,0 @@
-{"version":3,"file":"Santa.js","sourceRoot":"","sources":["../src/generator/Santa.ts"],"names":[],"mappings":";;AAAA;IACW,MAAM,CAAC,gBAAgB,CAAC,IAAY,EAAE,KAAa;QACtD,MAAM,KAAK,GAAU,IAAI,KAAK,EAAE,CAAC;QACjC,KAAK,CAAC,IAAI,GAAG,IAAI,CAAC;QAClB,KAAK,CAAC,KAAK,GAAG,KAAK,CAAC;QACpB,MAAM,CAAC,KAAK,CAAC;IACjB,CAAC;CAIJ;AAVD,sBAUC"}

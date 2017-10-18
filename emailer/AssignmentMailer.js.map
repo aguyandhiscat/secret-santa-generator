@@ -1,1 +1,0 @@
-{"version":3,"file":"AssignmentMailer.js","sourceRoot":"","sources":["../src/emailer/AssignmentMailer.ts"],"names":[],"mappings":";;AAEA;IACW,MAAM,CAAC,UAAU,CAAC,MAAe;QACpC,MAAM,gBAAgB,GAAG,IAAI,IAAI,EAAE,CAAC;QACpC,gBAAgB,CAAC,SAAS,CAAC,MAAM,CAAC,CAAC;QACnC,MAAM,CAAC,gBAAgB,CAAC;IAC5B,CAAC;IAIM,SAAS,CAAC,MAAe;QAC5B,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACzB,CAAC;CACJ;AAZD,4CAYC"}
