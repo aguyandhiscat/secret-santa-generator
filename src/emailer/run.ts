@@ -1,16 +1,11 @@
-// Reader.readInAssignments
-// AssignmentMailer.registerMailer(emailer)
-// AssignmentMailer.emailAssignments
-
 import { AssignmentMailer } from "./AssignmentMailer";
 import { Assignments } from "./Assignments";
 import { Emailer } from "./Emailer";
-import { Input } from "./Input";
+import Read from "./Read";
 
 const assignmentMailer = AssignmentMailer.fromMailer(new Emailer());
-const inputWorker = Input.read();
-inputWorker.onComplete(() => {
-    console.log(Input.getLines());
+Read.from(process.stdin).onComplete((reader: Read) => {
+    console.log(reader.getData());
+});
     // const assignments = Assignments.fromLines(Input.getLines());
     // AssignmentMailer.mail(assignments);
-});
