@@ -5,5 +5,5 @@ class Emailer {
         // callSendMail();
     }
 }
-exports.Emailer = Emailer;
+exports.default = Emailer;
 //# sourceMappingURL=Emailer.js.map

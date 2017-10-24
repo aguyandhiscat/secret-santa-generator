@@ -1,6 +1,6 @@
-import { IMailer } from "./IMailer";
+import IMailer from "./IMailer";
 
-export class Emailer implements IMailer {
+export default class Emailer implements IMailer {
     public send() {
         // callSendMail();
     }

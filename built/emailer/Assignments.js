@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Assignments {
-    static fromLines() {
+    static fromLines(lines) {
+        const obj = new this();
+        return obj;
     }
 }
-exports.Assignments = Assignments;
+exports.default = Assignments;
 //# sourceMappingURL=Assignments.js.map

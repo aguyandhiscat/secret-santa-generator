@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Read_1 = require("../../emailer/Read");
 const MockDuplexStream_1 = require("../helpers/MockDuplexStream");
-fdescribe("The Reader", () => {
+describe("The Reader", () => {
     it("should read in from a stream", (done) => {
         const stream = new MockDuplexStream_1.default();
         Read_1.default.from(stream).onComplete((reader) => {

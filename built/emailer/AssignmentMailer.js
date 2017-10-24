@@ -6,9 +6,12 @@ class AssignmentMailer {
         assignmentMailer.setMailer(mailer);
         return assignmentMailer;
     }
+    sendFor(assignments) {
+        // Do things
+    }
     setMailer(mailer) {
         this.mailer = mailer;
     }
 }
-exports.AssignmentMailer = AssignmentMailer;
+exports.default = AssignmentMailer;
 //# sourceMappingURL=AssignmentMailer.js.map
