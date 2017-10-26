@@ -5,8 +5,9 @@ const MockDuplexStream_1 = require("../helpers/MockDuplexStream");
 describe("The Reader", () => {
     it("should read in from a stream", (done) => {
         const stream = new MockDuplexStream_1.default();
-        Read_1.default.from(stream).onComplete((reader) => {
-            expect(reader.getData()).toBe("Hi");
+        const read = Read_1.default.from(stream);
+        read.onComplete(() => {
+            expect(read.getData()).toBe("Hi");
             done();
         });
         stream.send("Hi");

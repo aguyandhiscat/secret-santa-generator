@@ -5,7 +5,11 @@ import Input from "./Input";
 import Read from "./Read";
 
 const assignmentMailer = AssignmentMailer.fromMailer(new Emailer());
-Read.from(process.stdin).onComplete((reader: Read) => {
-    const lines = Input.getLinesFromData(reader.getData());
-    assignmentMailer.sendFor(Assignments.fromLines(lines));
+const read = Read.from(process.stdin);
+read.onComplete(() => {
+    const lines = Input.getLinesFromData(read.getData());
+    const assignments = Assignments.fromLines(lines);
+    for (const assignment of assignments.next()) {
+        assignmentMailer.send(assignment);
+    }
 });

@@ -6,8 +6,12 @@ const Emailer_1 = require("./Emailer");
 const Input_1 = require("./Input");
 const Read_1 = require("./Read");
 const assignmentMailer = AssignmentMailer_1.default.fromMailer(new Emailer_1.default());
-Read_1.default.from(process.stdin).onComplete((reader) => {
-    const lines = Input_1.default.getLinesFromData(reader.getData());
-    assignmentMailer.sendFor(Assignments_1.default.fromLines(lines));
+const read = Read_1.default.from(process.stdin);
+read.onComplete(() => {
+    const lines = Input_1.default.getLinesFromData(read.getData());
+    const assignments = Assignments_1.default.fromLines(lines);
+    for (const assignment of assignments.next()) {
+        assignmentMailer.send(assignment);
+    }
 });
 //# sourceMappingURL=run.js.map

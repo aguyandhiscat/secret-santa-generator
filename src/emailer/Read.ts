@@ -10,7 +10,7 @@ export default class Read {
     private data: string;
     private onReadComplete: Promise<this>;
 
-    public onComplete(callback: (reader: this) => void) {
+    public onComplete(callback: () => void) {
         this.onReadComplete.then(callback);
     }
 

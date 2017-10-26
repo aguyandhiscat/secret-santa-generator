@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Emailer {
-    send() {
+    send(mail) {
+        console.log(mail.body);
         // callSendMail();
     }
 }

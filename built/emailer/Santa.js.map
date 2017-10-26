@@ -1,0 +1,1 @@
+{"version":3,"file":"Santa.js","sourceRoot":"","sources":["../../src/emailer/Santa.ts"],"names":[],"mappings":";;AAAA;IACW,MAAM,CAAC,gBAAgB,CAAC,IAAY,EAAE,KAAa;QACtD,MAAM,GAAG,GAAG,IAAI,IAAI,EAAE,CAAC;QACvB,GAAG,CAAC,IAAI,GAAG,IAAI,CAAC;QAChB,GAAG,CAAC,KAAK,GAAG,KAAK,CAAC;QAClB,MAAM,CAAC,GAAG,CAAC;IACf,CAAC;CAIJ;AAVD,wBAUC"}

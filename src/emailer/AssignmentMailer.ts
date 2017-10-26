@@ -1,4 +1,4 @@
-import Assignments from "./Assignments";
+import Assignment from "./Assignment";
 import IMailer from "./IMailer";
 
 export default class AssignmentMailer {
@@ -10,8 +10,13 @@ export default class AssignmentMailer {
 
     private mailer: IMailer;
 
-    public sendFor(assignments: Assignments) {
-        // Do things
+    public send(assignment: Assignment) {
+        this.mailer.send({
+            body: "Hello I am sending you an email: " + assignment.from.email,
+            from: "",
+            subject: "",
+            to: "",
+        });
     }
 
     protected setMailer(mailer: IMailer) {

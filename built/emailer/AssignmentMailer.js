@@ -6,8 +6,13 @@ class AssignmentMailer {
         assignmentMailer.setMailer(mailer);
         return assignmentMailer;
     }
-    sendFor(assignments) {
-        // Do things
+    send(assignment) {
+        this.mailer.send({
+            body: "Hello I am sending you an email: " + assignment.from.email,
+            from: "",
+            subject: "",
+            to: "",
+        });
     }
     setMailer(mailer) {
         this.mailer = mailer;
