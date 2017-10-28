@@ -1,6 +1,7 @@
 {
     "include": [
-        "generator/**/*.js"
+        "built/generator/**/*.js",
+        "built/emailer/**/*.js"
     ],
     "reporter": [
         "html",

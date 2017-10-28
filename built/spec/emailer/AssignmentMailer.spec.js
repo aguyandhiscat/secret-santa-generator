@@ -1,14 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const AssignmentMail_1 = require("../../emailer/AssignmentMail");
 const AssignmentMailer_1 = require("../../emailer/AssignmentMailer");
 const Assignments_1 = require("../../emailer/Assignments");
 describe("An AssignmentMailer", () => {
-    it("should send an email for each assignment", () => {
-        const mailer = new FakeMailer();
-        const assignmentMailer = AssignmentMailer_1.default.fromMailer(mailer);
-        // assignmentMailer.sendFor(getAssignments());
-        // expect(mailer.tos).toEqual(["delta@me.com", "hotel@me.com"]);
+    let mailer;
+    let assignmentMailer;
+    let assignments;
+    beforeEach(() => {
+        mailer = new FakeMailer();
+        assignmentMailer = AssignmentMailer_1.default.fromMailer(mailer);
+        assignments = getAssignments();
     });
+    it("should send an email for each assignment", () => {
+        sendAssignments();
+        expect(mailer.mails.length).toBe(2);
+    });
+    it("should create mail through AssignmentMail", () => {
+        spyOn(AssignmentMail_1.default, "fromAssignment").and.callThrough();
+        sendAssignments();
+        expect(AssignmentMail_1.default.fromAssignment).toHaveBeenCalledTimes(2);
+    });
+    function sendAssignments() {
+        for (const assignment of assignments.next()) {
+            assignmentMailer.sendForAssignment(assignment);
+        }
+    }
 });
 function getAssignments() {
     const lines = [
@@ -19,10 +36,10 @@ function getAssignments() {
 }
 class FakeMailer {
     constructor() {
-        this.tos = [];
+        this.mails = [];
     }
     send(mail) {
-        this.tos.push(mail.to);
+        this.mails.push(mail);
     }
 }
 //# sourceMappingURL=AssignmentMailer.spec.js.map

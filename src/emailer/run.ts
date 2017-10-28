@@ -10,6 +10,6 @@ read.onComplete(() => {
     const lines = Input.getLinesFromData(read.getData());
     const assignments = Assignments.fromLines(lines);
     for (const assignment of assignments.next()) {
-        assignmentMailer.send(assignment);
+        assignmentMailer.sendForAssignment(assignment);
     }
 });

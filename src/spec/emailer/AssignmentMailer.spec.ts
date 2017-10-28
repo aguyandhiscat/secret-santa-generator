@@ -1,15 +1,35 @@
+import AssignmentMail from "../../emailer/AssignmentMail";
 import AssignmentMailer from "../../emailer/AssignmentMailer";
 import Assignments from "../../emailer/Assignments";
 import IMail from "../../emailer/IMail";
 import IMailer from "../../emailer/IMailer";
 
 describe("An AssignmentMailer", () => {
-    it("should send an email for each assignment", () => {
-        const mailer = new FakeMailer();
-        const assignmentMailer = AssignmentMailer.fromMailer(mailer);
-        // assignmentMailer.sendFor(getAssignments());
-        // expect(mailer.tos).toEqual(["delta@me.com", "hotel@me.com"]);
+    let mailer: FakeMailer;
+    let assignmentMailer: AssignmentMailer;
+    let assignments: Assignments;
+    beforeEach(() => {
+        mailer = new FakeMailer();
+        assignmentMailer = AssignmentMailer.fromMailer(mailer);
+        assignments = getAssignments();
     });
+
+    it("should send an email for each assignment", () => {
+        sendAssignments();
+        expect(mailer.mails.length).toBe(2);
+    });
+
+    it("should create mail through AssignmentMail", () => {
+        spyOn(AssignmentMail, "fromAssignment").and.callThrough();
+        sendAssignments();
+        expect(AssignmentMail.fromAssignment).toHaveBeenCalledTimes(2);
+    });
+
+    function sendAssignments() {
+        for (const assignment of assignments.next()) {
+            assignmentMailer.sendForAssignment(assignment);
+        }
+    }
 });
 
 function getAssignments() {
@@ -20,13 +40,13 @@ function getAssignments() {
 }
 
 class FakeMailer implements IMailer {
-    public tos: string[];
+    public mails: IMail[];
 
     constructor() {
-        this.tos = [];
+        this.mails = [];
     }
 
     public send(mail: IMail) {
-        this.tos.push(mail.to);
+        this.mails.push(mail);
     }
 }

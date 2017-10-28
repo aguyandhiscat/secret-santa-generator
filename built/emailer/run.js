@@ -11,7 +11,7 @@ read.onComplete(() => {
     const lines = Input_1.default.getLinesFromData(read.getData());
     const assignments = Assignments_1.default.fromLines(lines);
     for (const assignment of assignments.next()) {
-        assignmentMailer.send(assignment);
+        assignmentMailer.sendForAssignment(assignment);
     }
 });
 //# sourceMappingURL=run.js.map
