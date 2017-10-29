@@ -7,7 +7,8 @@
     "moduleResolution": "node",
     "outDir": "./built/",
     "allowJs": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "watch": true
   },
   "include": [
     "./src/**/*.ts"
