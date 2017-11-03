@@ -3,7 +3,9 @@ const fs = require("fs"),
     util = require("util"),
     srcDirectory = "src",
     builtDirectory = "built",
-    directoryFiles = {};
+    directoryFiles = {},
+    tscBin = '"/media/app/node_modules/.bin/tsc"',
+    tsConfigPath = '"/media/app/tsconfig.json"';
 let tscWatchChild;
 watchSrcForRemoves();
 runTsc();
@@ -80,8 +82,6 @@ function restartTsc() {
 }
 
 function runTsc() {
-    const tscBin = '"/home/alex/Projects/secret-santa/node_modules/.bin/tsc"';
-    const tsConfigPath = '"/home/alex/Projects/secret-santa/tsconfig.json"';
     tscWatchChild = exec(tscBin + " -p " + tsConfigPath, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
