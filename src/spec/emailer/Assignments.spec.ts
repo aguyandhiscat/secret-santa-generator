@@ -6,7 +6,6 @@ describe("An Assignments", () => {
         let assignments: Assignments;
         let as: Assignment[];
         let lines: string[];
-
         beforeEach(() => {
             lines = [
                 "alfa,bravo,charlie,delta",
@@ -15,16 +14,16 @@ describe("An Assignments", () => {
             ];
             assignments = Assignments.fromLines(lines);
             as = [...assignments.next()];
+            expect(as.length).toBe(2);
         });
 
         it("should contain Assignment objects", () => {
-            expect(as.length).toBeGreaterThan(0);
             expect(as[0].constructor.name).toBe(Assignment.name);
         });
 
         it("should ignore non-valid strings", () => {
-            expect(as.length).toBe(2);
             expect(as[0].from.name).toBe("alfa");
+            expect(as[1].from.name).not.toBe("echo");
             expect(as[1].from.name).toBe("hotel");
         });
     });

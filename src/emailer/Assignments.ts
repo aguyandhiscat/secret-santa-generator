@@ -52,7 +52,7 @@ export default class Assignments {
         this.addAssignment(assignment);
     }
 
-    private getFromAndToSantaForCsv(csv: string[]) {
+    private getFromAndToSantaForCsv(csv: string[]): [Santa, Santa] {
         const [fromName, fromEmail, toName, toEmail] = csv;
         const fromSanta = Santa.fromNameAndEmail(fromName, fromEmail);
         const toSanta = Santa.fromNameAndEmail(toName, toEmail);

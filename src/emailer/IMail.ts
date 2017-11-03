@@ -1,6 +1,6 @@
 export default interface IMail {
-    to: string;
+    body: string;
     from: string;
     subject: string;
-    body: string;
+    to: string;
 }
