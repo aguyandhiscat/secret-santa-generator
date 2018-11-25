@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Utils_1 = require("./lib/Utils");
+const _ = require("lodash");
 const SecretSantaAssignment_1 = require("./SecretSantaAssignment");
 class SecretSantaAssigner {
     static fromSantas(santas) {
@@ -10,7 +10,7 @@ class SecretSantaAssigner {
     }
     constructor() {
         this.santas = [];
-        this.santasForAssignment = [];
+        this.assignablePool = [];
     }
     addSantas(santas) {
         santas.forEach((santa) => {
@@ -29,37 +29,50 @@ class SecretSantaAssigner {
         return this.assignments;
     }
     prepareAssignment() {
-        this.santasForAssignment = [];
-        this.copySantasForAssignment();
-        this.randomizeAssignableSantas();
+        this.assignablePool = [];
+        this.copySantasToAssignable();
     }
-    copySantasForAssignment() {
+    copySantasToAssignable() {
         let santa;
         for (santa of this.santas) {
-            this.santasForAssignment.push(santa);
+            this.assignablePool.push(santa);
         }
-    }
-    randomizeAssignableSantas() {
-        this.santasForAssignment.sort(this.randomSortMethod);
-    }
-    randomSortMethod(left, right) {
-        return Utils_1.getRandomFloatInclusive(-1, 1);
     }
     assignSecretSantas() {
-        const lengthSubOne = (this.santasForAssignment.length - 1);
-        for (let i = 0, ii = lengthSubOne; i < ii; i++) {
-            this.addAssignmentByGifterAndReceiverIndex(i, i + 1);
+        for (const gifter of this.santas) {
+            const receiver = this.assignReceiverForGifterAndReturnReceiver(gifter);
+            this.removeSantaFromAssignablePool(receiver);
         }
-        this.addAssignmentByGifterAndReceiverIndex(lengthSubOne, 0);
     }
-    addAssignmentByGifterAndReceiverIndex(gifterIndex, receiverIndex) {
-        const gifter = this.santasForAssignment[gifterIndex];
-        const receiver = this.santasForAssignment[receiverIndex];
+    assignReceiverForGifterAndReturnReceiver(gifter) {
+        const receiver = this.getReceiverForGifter(gifter);
         const assignment = SecretSantaAssignment_1.SecretSantaAssignment.fromGifterAndReceiver(gifter, receiver);
         this.addAssignment(assignment);
+        return receiver;
+    }
+    getReceiverForGifter(gifter) {
+        const poolOfSantas = this.getPoolOfReceiversForSanta(gifter);
+        if (poolOfSantas.length <= 0) {
+            throw new Error("Must rerun. A Gifter was unable to be assigned a Receiver.");
+        }
+        else {
+            return this.getRandomSantaFromPool(poolOfSantas);
+        }
+    }
+    getPoolOfReceiversForSanta(santa) {
+        const unavailable = santa.getUnavailableReceivers();
+        return _.difference(this.assignablePool, unavailable);
+    }
+    getRandomSantaFromPool(pool) {
+        const randomIndex = _.random(0, pool.length - 1, false);
+        return pool[randomIndex];
     }
     addAssignment(assignment) {
         this.assignments.push(assignment);
+    }
+    removeSantaFromAssignablePool(santa) {
+        const index = this.assignablePool.indexOf(santa);
+        this.assignablePool.splice(index, 1);
     }
 }
 exports.SecretSantaAssigner = SecretSantaAssigner;

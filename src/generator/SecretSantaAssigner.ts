@@ -1,4 +1,4 @@
-import { getRandomFloatInclusive } from "./lib/Utils";
+import * as _ from "lodash";
 import { Santa } from "./Santa";
 import { SecretSantaAssignment } from "./SecretSantaAssignment";
 
@@ -10,12 +10,12 @@ export class SecretSantaAssigner {
     }
 
     private santas: Santa[];
-    private santasForAssignment: Santa[];
+    private assignablePool: Santa[];
     private assignments: SecretSantaAssignment[];
 
     constructor() {
         this.santas = [];
-        this.santasForAssignment = [];
+        this.assignablePool = [];
     }
 
     public addSantas(santas: Santa[]) {
@@ -39,42 +39,56 @@ export class SecretSantaAssigner {
     }
 
     private prepareAssignment() {
-        this.santasForAssignment = [];
-        this.copySantasForAssignment();
-        this.randomizeAssignableSantas();
+        this.assignablePool = [];
+        this.copySantasToAssignable();
     }
 
-    private copySantasForAssignment() {
+    private copySantasToAssignable() {
         let santa: Santa;
         for (santa of this.santas) {
-            this.santasForAssignment.push(santa);
+            this.assignablePool.push(santa);
         }
-    }
-
-    private randomizeAssignableSantas() {
-        this.santasForAssignment.sort(this.randomSortMethod);
-    }
-
-    private randomSortMethod(left: Santa, right: Santa): number {
-        return getRandomFloatInclusive(-1, 1);
     }
 
     private assignSecretSantas() {
-        const lengthSubOne: number = (this.santasForAssignment.length - 1);
-        for (let i = 0, ii = lengthSubOne; i < ii; i++) {
-            this.addAssignmentByGifterAndReceiverIndex(i, i + 1);
+        for (const gifter of this.santas) {
+            const receiver: Santa = this.assignReceiverForGifterAndReturnReceiver(gifter);
+            this.removeSantaFromAssignablePool(receiver);
         }
-        this.addAssignmentByGifterAndReceiverIndex(lengthSubOne, 0);
     }
 
-    private addAssignmentByGifterAndReceiverIndex(gifterIndex: number, receiverIndex: number) {
-        const gifter: Santa = this.santasForAssignment[gifterIndex];
-        const receiver: Santa = this.santasForAssignment[receiverIndex];
+    private assignReceiverForGifterAndReturnReceiver(gifter: Santa): Santa {
+        const receiver: Santa = this.getReceiverForGifter(gifter);
         const assignment: SecretSantaAssignment = SecretSantaAssignment.fromGifterAndReceiver(gifter, receiver);
         this.addAssignment(assignment);
+        return receiver;
+    }
+
+    private getReceiverForGifter(gifter: Santa) {
+        const poolOfSantas: Santa[] = this.getPoolOfReceiversForSanta(gifter);
+        if (poolOfSantas.length <= 0) {
+            throw new Error("Must rerun. A Gifter was unable to be assigned a Receiver.");
+        } else {
+            return this.getRandomSantaFromPool(poolOfSantas);
+        }
+    }
+
+    private getPoolOfReceiversForSanta(santa: Santa): Santa[] {
+        const unavailable: Santa[] = santa.getUnavailableReceivers();
+        return _.difference(this.assignablePool, unavailable);
+    }
+
+    private getRandomSantaFromPool(pool: Santa[]): Santa {
+        const randomIndex = _.random(0, pool.length - 1, false);
+        return pool[randomIndex];
     }
 
     private addAssignment(assignment: SecretSantaAssignment) {
         this.assignments.push(assignment);
+    }
+
+    private removeSantaFromAssignablePool(santa: Santa) {
+        const index = this.assignablePool.indexOf(santa);
+        this.assignablePool.splice(index, 1);
     }
 }

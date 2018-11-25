@@ -1,4 +1,4 @@
-import Emailer from "../../emailer/Emailer";
+import Emailer from "../../emailer/ConsoleEmailer";
 import IMail from "../../emailer/IMail";
 import SendMailWrapper from "../../emailer/SendMailWrapper";
 

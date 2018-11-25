@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Emailer_1 = require("../../emailer/Emailer");
+const ConsoleEmailer_1 = require("../../emailer/ConsoleEmailer");
 const SendMailWrapper_1 = require("../../emailer/SendMailWrapper");
 describe("An Emailer", () => {
     it("should call through to SendMailWrapper", () => {
         const mail = getMail();
-        const emailer = new Emailer_1.default();
+        const emailer = new ConsoleEmailer_1.default();
         spyOn(SendMailWrapper_1.default, "call");
         emailer.send(mail);
         expect(SendMailWrapper_1.default.call).toHaveBeenCalledWith("bravo", "charlie", "delta", "alfa");

@@ -26,7 +26,11 @@ class AssignmentMail {
     }
     assignBody() {
         // tslint:disable-next-line:max-line-length
-        this.body = util.format("As a Secret Santa for the 2017 Christmas, you have been assigned to give a gift to %s.", this.assignment.to.name);
+        this.body = util.format("As a Secret Santa for the 2018 Christmas, you have been assigned to give a gift to %s.", this.assignment.to.name);
+        if (this.assignment.to.name === "alex") {
+            // tslint:disable-next-line:max-line-length
+            this.body += "\n\nYou got me, and I wrote this app so I get to throw in an easter egg. Give me something good :D.";
+        }
     }
     getEmailAddressFromNameAndEmail(name, email) {
         return util.format("%s <%s>", name, email);

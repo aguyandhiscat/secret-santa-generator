@@ -8,4 +8,17 @@ export class Santa {
 
     public email: string;
     public name: string;
+    private unavailableReceivers: Santa[];
+
+    constructor() {
+        this.unavailableReceivers = [this];
+    }
+
+    public assignLastYearsSanta(santa: Santa) {
+        this.unavailableReceivers.push(santa);
+    }
+
+    public getUnavailableReceivers(): Santa[] {
+        return this.unavailableReceivers;
+    }
 }

@@ -3,6 +3,7 @@ services:
   dev:
     image: "secret-santa"
     tty: true
+    network_mode: "host"
     container_name: "secret-santa"
     volumes:
       - "..:/media/app"

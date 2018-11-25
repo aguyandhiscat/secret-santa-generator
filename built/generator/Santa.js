@@ -7,6 +7,15 @@ class Santa {
         santa.email = email;
         return santa;
     }
+    constructor() {
+        this.unavailableReceivers = [this];
+    }
+    assignLastYearsSanta(santa) {
+        this.unavailableReceivers.push(santa);
+    }
+    getUnavailableReceivers() {
+        return this.unavailableReceivers;
+    }
 }
 exports.Santa = Santa;
 //# sourceMappingURL=Santa.js.map

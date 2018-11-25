@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const _ = require("lodash");
 const Assignment_1 = require("./Assignment");
 const Santa_1 = require("./Santa");
 class Assignments {
@@ -22,12 +23,17 @@ class Assignments {
         });
     }
     addPossibleAssignmentForLine(line) {
-        const csv = line.split(",");
+        const csvLine = this.removeSurroundingSquareBrackets(line);
+        const csv = csvLine.split(",");
         this.addPossibleAssignmentForCsv(csv);
+    }
+    removeSurroundingSquareBrackets(line) {
+        return _.trim(line, "[]");
     }
     addPossibleAssignmentForCsv(csv) {
         if (this.isValidCsv(csv)) {
-            this.addAssignmentForCsv(csv);
+            const strippedCsv = this.getRemovedSurroundingQuotesForCsv(csv);
+            this.addAssignmentForCsv(strippedCsv);
         }
     }
     isValidCsv(csv) {
@@ -35,6 +41,19 @@ class Assignments {
             return true;
         }
         return false;
+    }
+    getRemovedSurroundingQuotesForCsv(csv) {
+        const strippedCsv = [];
+        csv.forEach((item) => {
+            if (item[0] === '"') {
+                item = item.substr(1);
+            }
+            if (item[item.length - 1] === '"') {
+                item = item.substr(0, item.length - 1);
+            }
+            strippedCsv.push(item);
+        });
+        return strippedCsv;
     }
     addAssignmentForCsv(csv) {
         const [fromSanta, toSanta] = this.getFromAndToSantaForCsv(csv);

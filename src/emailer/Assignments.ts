@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import Assignment from "./Assignment";
 import Santa from "./Santa";
 
@@ -27,13 +28,19 @@ export default class Assignments {
     }
 
     private addPossibleAssignmentForLine(line: string) {
-        const csv = line.split(",");
+        const csvLine: string = this.removeSurroundingSquareBrackets(line);
+        const csv = csvLine.split(",");
         this.addPossibleAssignmentForCsv(csv);
+    }
+
+    private removeSurroundingSquareBrackets(line: string): string {
+        return _.trim(line, "[]");
     }
 
     private addPossibleAssignmentForCsv(csv: string[]) {
         if (this.isValidCsv(csv)) {
-            this.addAssignmentForCsv(csv);
+            const strippedCsv = this.getRemovedSurroundingQuotesForCsv(csv);
+            this.addAssignmentForCsv(strippedCsv);
         }
     }
 
@@ -42,6 +49,20 @@ export default class Assignments {
             return true;
         }
         return false;
+    }
+
+    private getRemovedSurroundingQuotesForCsv(csv: string[]): string[] {
+        const strippedCsv: string[] = [];
+        csv.forEach((item: string) => {
+            if (item[0] === '"') {
+                item = item.substr(1);
+            }
+            if (item[item.length - 1] === '"') {
+                item = item.substr(0, item.length - 1);
+            }
+            strippedCsv.push(item);
+        });
+        return strippedCsv;
     }
 
     private addAssignmentForCsv(csv: string[]) {
