@@ -4,7 +4,7 @@ import IMail from "./IMail";
 
 const FROM_NAME = "Secret Santa";
 const FROM_EMAIL = "hohoho@wilczewski.org";
-const SUBJECT = "Secret Santa Assignment";
+const SUBJECT = "Secret Santa Assignment - 3rd round";
 
 export default class AssignmentMail implements IMail {
     public static fromAssignment(assignment: Assignment): AssignmentMail {

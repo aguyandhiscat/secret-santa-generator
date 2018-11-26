@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const util = require("util");
 const FROM_NAME = "Secret Santa";
 const FROM_EMAIL = "hohoho@wilczewski.org";
-const SUBJECT = "Secret Santa Assignment";
+const SUBJECT = "Secret Santa Assignment - 3rd round";
 class AssignmentMail {
     static fromAssignment(assignment) {
         const mail = new this();
